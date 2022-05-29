@@ -2,10 +2,12 @@ import React from "react";
 
 const Input = (props) =>{
     let inputClassName = 'form-control';
-    if(props.hasError===false){
-        inputClassName += _'is-valid';
-    }
 
+    if(props.hasError !== undefined){
+
+        inputClassName += props.hasError ? 'is-invalid' :'is-valid';
+    }
+   
     return(
         <div>
            {props.label && <label>{props.label}</label>}
@@ -16,6 +18,9 @@ const Input = (props) =>{
             value={props.value}
             onChange= {props.onChange}
             />
+            {props.hasError &&(
+                    <span className="invalid-feedback">{props.error}</span>
+                )}
         </div>
     );
 };
