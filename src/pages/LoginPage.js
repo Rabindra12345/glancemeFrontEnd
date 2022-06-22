@@ -5,7 +5,8 @@ import Input from '../components/Input';
 export class LoginPage extends React.Component {
 
     state = {
-        username:""
+        username:"",
+        password : ""
     }
 
     onChangeUsername = (event) =>{
@@ -13,6 +14,17 @@ export class LoginPage extends React.Component {
         this.setState({
             username:value
         });
+    }
+
+    onChangePassword = (event) =>{
+        const value = event.target.value;
+        this.setState({
+            password:value
+        });
+    }
+
+    onClickLogin = () =>{
+        this.props.actions.postLogin();
     }
 
     render(){
@@ -28,16 +40,29 @@ export class LoginPage extends React.Component {
                 </div>
 
                 <div className='col-12 mb-3'>
-                    <Input label="Password" placeholder="Password here .." type="password"></Input>
+                    <Input label="Password" 
+                    placeholder="Password here .." 
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.onChangePassword}>
+                </Input>
                 </div>
 
                 <div className='text-center'>
-                    <button className='btn btn-primary'>Login</button>
+                    <button className='btn btn-primary' 
+                    onClick={this.onClickLogin}>Login</button>
                 </div>
             </div>
 
         );
     }
 }
+
+LoginPage.defaultProps = {
+    actions:{
+        postLogin: () => new Promise((resolve, reject) => resolve({}))
+    }
+
+};
 
 export default LoginPage;
